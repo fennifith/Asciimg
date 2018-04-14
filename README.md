@@ -2,6 +2,12 @@ Asciimg is a command line tool that displays images in ASCII.
 
 ## Installation
 
+### NPM
+
+```bash
+npm install -g asciimg
+```
+
 ### From Source
 
 Assuming that you have already installed [npm](https://www.npmjs.com/), in the command line, type
