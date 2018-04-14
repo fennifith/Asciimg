@@ -9,7 +9,7 @@
   "main": "index.js",
   "bin": "./index.js",
   "scripts": {
-    "test": "node index.js -i ./test.png -h 50 -w 100"
+    "test": "node index.js ./test.png"
   },
   "keywords": [
     "ascii",
