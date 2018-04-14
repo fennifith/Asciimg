@@ -1,0 +1,21 @@
+{
+  "name": "asciimg",
+  "version": "1.0.0",
+  "description": "Convert image files to ASCII in command line.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js -i ./test.png -h 50 -w 100"
+  },
+  "keywords": [
+    "ascii",
+    "image",
+    "text"
+  ],
+  "author": "James Fenn",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "commander": "^2.15.1",
+    "get-pixels": "^3.3.0"
+  }
+}
