@@ -2,6 +2,8 @@ Asciimg is a command line tool that displays images in ASCII.
 
 ## Installation
 
+Assuming that you have already installed [npm](https://www.npmjs.com/), in the command line, type either one of the following:
+
 ### NPM
 
 ```bash
@@ -9,8 +11,6 @@ npm install -g asciimg
 ```
 
 ### From Source
-
-Assuming that you have already installed [npm](https://www.npmjs.com/), in the command line, type
 
 ```bash
 git clone https://github.com/TheAndroidMaster/Asciimg
@@ -21,13 +21,13 @@ npm install
 ## Usage
 
 ```
-asciimg -i [image]
+asciimg <image>
 ```
 
 Or, to change the dimensions:
 
 ```
-asciimg -i [image] -h [height] -w [width]
+asciimg <image> -h [height] -w [width]
 ```
 
 If either the height or width is not specified, asciimg will pick the value that maintains the correct aspect ratio.
@@ -35,7 +35,7 @@ If either the height or width is not specified, asciimg will pick the value that
 If your command line supports rgb color values:
 
 ```
-asciimg -i [image] --usergb
+asciimg <image> --usergb
 ```
 
 ## Sample Images
