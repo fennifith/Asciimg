@@ -1,8 +1,13 @@
 {
   "name": "asciimg",
   "version": "1.0.0",
+  "homepage": "https://jfenn.me/about/?Asciimg",
   "description": "Convert image files to ASCII in command line.",
+  "url": "https://github.com/TheAndroidMaster/Asciimg/issues",
+  "email": "dev@jfenn.me",
+  "repository": "TheAndroidMaster/Asciimg",
   "main": "index.js",
+  "bin": "./index.js",
   "scripts": {
     "test": "node index.js -i ./test.png -h 50 -w 100"
   },
