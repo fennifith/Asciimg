@@ -28,8 +28,8 @@ if (program.image) {
 		var colors = {};
 		var chars = [];
 
-		var width = pixels.shape[0];
-		var height = pixels.shape[1];
+		var width = Math.min(process.stdout.columns, pixels.shape[0] * (process.stdout.rows / (pixels.shape[1] / 2)));
+		var height = Math.min(process.stdout.rows, (pixels.shape[1] / 2) * (process.stdout.columns / pixels.shape[0]));
 		if (program.width && program.height) {
 			width = program.width;
 			height = program.height;
