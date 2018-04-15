@@ -84,39 +84,38 @@ program.version('1.0.0')
 		   				    	merges: 0
 		   				    };
 					    }
-					}
-				}
-		
-				for (var row = 0; row < chars.length; row++) {
-					var string = "";
-					for (var char = 0; char < chars[row].length; char++) {
-						var colorArr = chars[row][char].color.split(",");
-						var color = chalk.rgb(colorArr[0], colorArr[1], colorArr[2]);
-						if (!program.usergb) {
-							if (colorArr[0] == colorArr[1] && colorArr[1] == colorArr[2]) {
-								if (colorArr[0] > 125) {
-									color = chalk.white;
-								} else {
-									color = chalk.gray;
+
+					    if (Math.floor((pixel + 1) * (width / pixels.shape[0])) != charPixel && Math.floor((row + 1) * (height / pixels.shape[1])) != charRow) {
+					    	var colorArr = chars[charRow][charPixel].color.split(",");
+					    	var color = chalk.rgb(colorArr[0], colorArr[1], colorArr[2]);
+					  		if (!program.usergb) {
+								if (colorArr[0] == colorArr[1] && colorArr[1] == colorArr[2]) {
+									if (colorArr[0] > 125) {
+										color = chalk.white;
+									} else {
+										color = chalk.gray;
+									}
+								} else if (colorArr[0] > colorArr[1] && colorArr[0] > colorArr[2]) {
+									color = chalk.red;
+								} else if (colorArr[1] > colorArr[0] && colorArr[1] > colorArr[2]) {
+									color = chalk.green;
+								} else if (colorArr[2] > colorArr[0] && colorArr[2] > colorArr[1]) {
+									color = chalk.blue;
+								} else if (colorArr[0] == colorArr[1]) {
+									color = chalk.yellow;
+								} else if (colorArr[1] == colorArr[2]) {
+									color = chalk.cyan;
+								} else if (colorArr[0] == colorArr[2]) {
+									color = chalk.magenta;
 								}
-							} else if (colorArr[0] > colorArr[1] && colorArr[0] > colorArr[2]) {
-								color = chalk.red;
-							} else if (colorArr[1] > colorArr[0] && colorArr[1] > colorArr[2]) {
-								color = chalk.green;
-							} else if (colorArr[2] > colorArr[0] && colorArr[2] > colorArr[1]) {
-								color = chalk.blue;
-							} else if (colorArr[0] == colorArr[1]) {
-								color = chalk.yellow;
-							} else if (colorArr[1] == colorArr[2]) {
-								color = chalk.cyan;
-							} else if (colorArr[0] == colorArr[2]) {
-								color = chalk.magenta;
 							}
-						}
-						
-						string += color(chars[row][char].char);
+
+							string += color(chars[charRow][charPixel].char);
+					    }
 					}
-					console.log(string);
+
+					if (Math.floor((row + 1) * (height / pixels.shape[1])) != charRow)
+						console.log(string);
 				}
 			});
 		} else console.log("You must pass the path of an image to convert!");
