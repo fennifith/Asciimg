@@ -1,4 +1,4 @@
-Asciimg is a command line tool that displays images in ASCII.
+Asciimg (pronounced _ask-ee-em_) is a command line tool that displays images in ASCII.
 
 ## Installation
 
