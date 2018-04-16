@@ -39,83 +39,61 @@ program.version('1.0.0')
 					width *= program.height / height;
 					height = program.height;
 				}
+
+				var widthMult = pixels.shape[0] / width;
+				var heightMult = pixels.shape[1] / height;
 		
-				for (var row = 0; row < pixels.shape[1]; row++) {
-					var charRow = Math.floor(row * (height / pixels.shape[1]));
-					if (!chars[charRow])
-						chars[charRow] = [];
-				
+				for (var charRow = 0; charRow < height; charRow++) {				
 					var string = "";
-					for (var pixel = 0; pixel < pixels.shape[0]; pixel++) {
-						var charPixel = Math.floor(pixel * (width / pixels.shape[0]));
-					
-						var index = ((row * pixels.shape[0]) + pixel) * pixels.shape[2];
-						var red = Math.floor(pixels.data[index] * (16/255)) * (255/16);
-						var green = Math.floor(pixels.data[index + 1] * (16/255)) * (255/16);
-						var blue = Math.floor(pixels.data[index + 2] * (16/255)) * (255/16);
-						var color = red + "," + green + "," + blue;
-		
-						if (!colors[color]) {
-							colors[color] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-						}
-		
-					    if (chars[charRow][charPixel]) {
-					    	chars[charRow][charPixel].merges += 1;
-					    	
-					    	var curColorArr = chars[charRow][charPixel].color.split(",");
-					    	red = Math.floor(((curColorArr[0] * chars[charRow][charPixel].merges) + red)
-					    			/ (chars[charRow][charPixel].merges + 1));
-					    	green = Math.floor(((curColorArr[1] * chars[charRow][charPixel].merges) + green)
-					    			/ (chars[charRow][charPixel].merges + 1));
-					    	blue = Math.floor(((curColorArr[2] * chars[charRow][charPixel].merges) + blue)
-					    			/ (chars[charRow][charPixel].merges + 1));
-							color = red + "," + green + "," + blue;
-		
-							if (!colors[color]) {
-								colors[color] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+					for (var char = 0; char < width; char++) {
+						var startIndex = Math.floor((charRow * heightMult * pixels.shape[0]) + (char * widthMult)) * pixels.shape[2];
+						var red = Math.floor(pixels.data[startIndex] * (16/255)) * (255/16);
+						var green = Math.floor(pixels.data[startIndex + 1] * (16/255)) * (255/16);
+						var blue = Math.floor(pixels.data[startIndex + 2] * (16/255)) * (255/16);
+						var merges = 0;
+						
+						for (var pixRow = Math.floor(charRow * heightMult); pixRow < ((charRow + 1) * heightMult) - 1; pixRow++) {
+							for (var pixel = Math.floor(char * widthMult) + 1; pixel < ((char + 1) * widthMult) - 1; pixel++) {
+								merges++;
+								
+								var index = ((pixRow * pixels.shape[0]) + pixel) * pixels.shape[2];
+								red = Math.floor(((red * merges) + (Math.floor(pixels.data[index] * (16/255)) * (255/16))) / (merges + 1));
+								green = Math.floor(((green * merges) + (Math.floor(pixels.data[index + 1] * (16/255)) * (255 / 16))) / (merges + 1));
+								blue = Math.floor(((blue * merges) + (Math.floor(pixels.data[index + 2] * (16/255)) * (255 / 16))) / (merges + 1));
 							}
-		
-					    	chars[charRow][charPixel].color = color;
-					    	chars[charRow][charPixel].char = colors[color];
-					    } else {
-					    	chars[charRow][charPixel] = {
-					    		color: color,
-					    		char: colors[color],
-		   				    	merges: 0
-		   				    };
-					    }
-					}
-				}
-		
-				for (var row = 0; row < chars.length; row++) {
-					var string = "";
-					for (var char = 0; char < chars[row].length; char++) {
-						var colorArr = chars[row][char].color.split(",");
-						var color = chalk.rgb(colorArr[0], colorArr[1], colorArr[2]);
+						}
+
+						var colorId = red + "," + green + "," + blue;		
+						if (!colors[colorId]) {
+							colors[colorId] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+						}
+
+						var color = chalk.rgb(red, green, blue);
 						if (!program.usergb) {
-							if (colorArr[0] == colorArr[1] && colorArr[1] == colorArr[2]) {
-								if (colorArr[0] > 125) {
+							if (red == green && green == blue) {
+								if (red > 125) {
 									color = chalk.white;
 								} else {
 									color = chalk.gray;
 								}
-							} else if (colorArr[0] > colorArr[1] && colorArr[0] > colorArr[2]) {
+							} else if (red > green && red > blue) {
 								color = chalk.red;
-							} else if (colorArr[1] > colorArr[0] && colorArr[1] > colorArr[2]) {
+							} else if (green > red && green > blue) {
 								color = chalk.green;
-							} else if (colorArr[2] > colorArr[0] && colorArr[2] > colorArr[1]) {
+							} else if (blue > red && blue > green) {
 								color = chalk.blue;
-							} else if (colorArr[0] == colorArr[1]) {
+							} else if (red == green) {
 								color = chalk.yellow;
-							} else if (colorArr[1] == colorArr[2]) {
+							} else if (green == blue) {
 								color = chalk.cyan;
-							} else if (colorArr[0] == colorArr[2]) {
+							} else if (red == blue) {
 								color = chalk.magenta;
 							}
 						}
-						
-						string += color(chars[row][char].char);
+																	
+						string += color(colors[colorId]);
 					}
+
 					console.log(string);
 				}
 			});
