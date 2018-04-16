@@ -68,26 +68,56 @@ program.version('1.0.0')
 							colors[colorId] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 						}
 
-						var color = chalk.rgb(red, green, blue);
+						var color = chalk.rgb(red, green, blue).bgRgb(Math.max(0, red - 20), Math.max(0, green - 20), Math.max(0, blue - 20));
 						if (!program.usergb) {
 							if (red == green && green == blue) {
 								if (red > 125) {
-									color = chalk.white;
+									color = chalk.gray.bgWhite;
 								} else {
-									color = chalk.gray;
+									color = chalk.white.bgBlack;
 								}
 							} else if (red > green && red > blue) {
-								color = chalk.red;
+								if (green > blue) {
+									color = chalk.green.bgRed;
+								} else if (blue > green) {
+									color = chalk.blue.bgRed;
+								} else {
+									color = chalk.cyan.bgRed;
+								}
 							} else if (green > red && green > blue) {
-								color = chalk.green;
+								if (red > blue) {
+									color = chalk.red.bgGreen;
+								} else if (blue > red) {
+									color = chalk.blue.bgGreen;
+								} else {
+									color = chalk.magenta.bgGreen;
+								}
 							} else if (blue > red && blue > green) {
-								color = chalk.blue;
+								if (red > green) {
+									color = chalk.red.bgBlue;
+								} else if (green > red) {
+									color = chalk.green.bgBlue;
+								} else {
+									color = chalk.yellow.bgBlue;
+								}
 							} else if (red == green) {
-								color = chalk.yellow;
+								if (blue > green) {
+									color = chalk.yellow.bgBlue;
+								} else {
+									color = chalk.yellow.bgYellow;
+								}
 							} else if (green == blue) {
-								color = chalk.cyan;
+								if (red > green) {
+									color = chalk.cyan.bgRed;
+								} else {
+									color = chalk.cyan.bgCyan;
+								}
 							} else if (red == blue) {
-								color = chalk.magenta;
+								if (green > red) {
+									color = chalk.magenta.bgGreen;
+								} else {
+									color = chalk.magenta.bgMagenta;
+								}
 							}
 						}
 																	
