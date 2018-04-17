@@ -136,19 +136,43 @@ program.version('1.0.0')
 									color = chalk.yellow.bgBlue;
 								}
 							} else if (redId == greenId) {
-								if (blueId > greenId) {
+								if (red > 200) {
+									color = chalk.yellow.bgWhite;
+								} else if (red < 50) {
+									color = chalk.yellow.bgBlack;
+								} else if (red > 170) {
+									color = chalk.white.bgYellow;
+								} else if (red < 80) {
+									color = chalk.black.bgYellow;
+								} else if (blueId > greenId) {
 									color = chalk.yellow.bgBlue;
 								} else {
 									color = chalk.yellow.bgYellow;
 								}
 							} else if (greenId == blueId) {
-								if (redId > greenId) {
+								if (green > 200) {
+									color = chalk.cyan.bgWhite;
+								} else if (green < 50) {
+									color = chalk.cyan.bgBlack;
+								} else if (green > 170) {
+									color = chalk.white.bgCyan;
+								} else if (green < 80) {
+									color = chalk.black.bgCyan;
+								} else if (redId > greenId) {
 									color = chalk.cyan.bgRed;
 								} else {
 									color = chalk.cyan.bgCyan;
 								}
 							} else if (redId == blueId) {
-								if (greenId > redId) {
+								if (blue > 200) {
+									color = chalk.magenta.bgWhite;
+								} else if (blue < 50) {
+									color = chalk.magenta.bgBlack;
+								} else if (blue > 170) {
+									color = chalk.white.bgMagenta;
+								} else if (blue < 80) {
+									color = chalk.black.bgMagenta;
+								} else if (greenId > redId) {
 									color = chalk.magenta.bgGreen;
 								} else {
 									color = chalk.magenta.bgMagenta;
