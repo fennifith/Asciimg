@@ -16,7 +16,7 @@ program.version('1.0.0')
 			getPixels(image, function(err, pixels) {
 				if(err) {
 					console.log("Bad image path.");
-					return
+					return;
 				}
 		
 				if (pixels.shape.length != 3 || !(pixels.shape[2] == 3 || pixels.shape[2] == 4)) {
@@ -153,4 +153,4 @@ program.version('1.0.0')
 		} else console.log("You must pass the path of an image to convert!");
 	});
 
-program.parse(process.argv)
+program.parse(process.argv);
