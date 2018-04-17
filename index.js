@@ -75,7 +75,7 @@ program.version('1.0.0')
 							colors[colorId] = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 						}
 
-						var color = chalk.rgb(red, green, blue).bgRgb(Math.max(0, red - 20), Math.max(0, green - 20), Math.max(0, blue - 20));
+						var color = chalk.rgb(red, green, blue).bgRgb(red, green, blue);
 						if (!program.usergb) {
 							if (redId == greenId && greenId == blueId) {
 								if (red > 190) {
@@ -89,8 +89,12 @@ program.version('1.0.0')
 								}
 							} else if (redId > greenId && redId > blueId) {
 								if (red > 200) {
-									color = chalk.white.bgRed;
+									color = chalk.red.bgWhite;
 								} else if (red < 50) {
+									color = chalk.red.bgBlack;
+								} else if (red > 170) {
+									color = chalk.white.bgRed;
+								} else if (red < 80) {
 									color = chalk.black.bgRed;
 								} else if (greenId > blueId) {
 									color = chalk.green.bgRed;
@@ -101,8 +105,12 @@ program.version('1.0.0')
 								}
 							} else if (greenId > redId && greenId > blueId) {
 								if (green > 200) {
-									color = chalk.white.bgGreen;		
+									color = chalk.green.bgWhite;		
 								} else if (green < 50) {
+									color = chalk.green.bgBlack;
+								} else if (green > 170) {
+									color = chalk.white.bgGreen;
+								} else if (green < 80) {
 									color = chalk.black.bgGreen;
 								} else if (redId > blueId) {
 									color = chalk.red.bgGreen;
@@ -113,8 +121,12 @@ program.version('1.0.0')
 								}
 							} else if (blueId > redId && blueId > greenId) {
 								if (blue > 200) {
-									color = chalk.white.bgBlue;
+									color = chalk.blue.bgWhite;
 								} else if (blue < 50) {
+									color = chalk.blue.bgBlack;
+								} else if (blue > 170) {
+									color = chalk.white.bgBlue;
+								} else if (blue < 80) {
 									color = chalk.black.bgBlue;
 								} else if (redId > greenId) {
 									color = chalk.red.bgBlue;
